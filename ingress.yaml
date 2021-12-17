@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /pact
+            backend:
+              serviceName: pact-broker
+              servicePort: 9292
+          - path: /
+            backend:
+              serviceName: front-end-service
+              servicePort: 5000
+          - path: /api/
+            backend:
+              serviceName: back-end-service
+              servicePort: 3000
